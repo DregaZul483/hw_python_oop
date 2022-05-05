@@ -1,5 +1,6 @@
 from typing import List, Dict
 
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
@@ -66,8 +67,8 @@ class Running(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         return ((self.COEFF_CALORIE_1 * self.get_mean_speed()
-                  - self.COEFF_CALORIE_2) * self.weight
-                  / self.M_IN_KM * (self.duration * self.MIN_IN_HOUR))
+                 - self.COEFF_CALORIE_2) * self.weight
+                / self.M_IN_KM * (self.duration * self.MIN_IN_HOUR))
 
 
 class SportsWalking(Training):
@@ -85,10 +86,9 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-        return ((self.COEFF_CALORIE_1 * self.weight
-                + (self.get_mean_speed()
-                ** self.COEFF_CALORIE_2 // self.height)
-                * self.COEFF_CALORIE_3 * self.weight)
+        return ((self.COEFF_CALORIE_1 * self.weight + (self.get_mean_speed()
+                                                       ** self.COEFF_CALORIE_2 // self.height)
+                 * self.COEFF_CALORIE_3 * self.weight)
                 * (self.duration * self.MIN_IN_HOUR))
 
 
