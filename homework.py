@@ -1,3 +1,5 @@
+from typing import List, Dict
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
@@ -23,7 +25,7 @@ class InfoMessage:
 class Training:
     """Базовый класс тренировки."""
     LEN_STEP: float = 0.65
-    M_IN_KM: int = 1000
+    M_IN_KM: float = 1000
     MIN_IN_HOUR: int = 60
 
     def __init__(self,
@@ -63,10 +65,9 @@ class Running(Training):
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        result = ((self.COEFF_CALORIE_1 * self.get_mean_speed()
+        return ((self.COEFF_CALORIE_1 * self.get_mean_speed()
                   - self.COEFF_CALORIE_2) * self.weight
                   / self.M_IN_KM * (self.duration * self.MIN_IN_HOUR))
-        return result
 
 
 class SportsWalking(Training):
@@ -84,7 +85,8 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-        return ((self.COEFF_CALORIE_1 * self.weight + (self.get_mean_speed()
+        return ((self.COEFF_CALORIE_1 * self.weight
+                + (self.get_mean_speed()
                 ** self.COEFF_CALORIE_2 // self.height)
                 * self.COEFF_CALORIE_3 * self.weight)
                 * (self.duration * self.MIN_IN_HOUR))
@@ -116,11 +118,12 @@ class Swimming(Training):
                 * self.COEFF_CALORIE_2 * self.weight)
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, data: List[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
-    controller = {"SWM": Swimming,
-                  "RUN": Running,
-                  "WLK": SportsWalking}
+    controller: Dict = {"SWM": Swimming,
+                        "RUN": Running,
+                        "RUN": Running,
+                        "WLK": SportsWalking}
     return controller[workout_type](*data)
 
 
