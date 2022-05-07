@@ -121,11 +121,10 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: List[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
-    controller: Dict = {"SWM": Swimming,
-                        "RUN": Running,
-                        "RUN": Running,
-                        "WLK": SportsWalking}
-    return controller[workout_type](*data)
+    package: Dict[str: str] = {"SWM": Swimming,
+                               "RUN": Running,
+                               "WLK": SportsWalking}
+    return package[workout_type](*data)
 
 
 def main(training: Training) -> None:
